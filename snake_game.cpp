@@ -14,14 +14,9 @@ class snake
             up, down, left,right,stop
         }dir;
         deque<pair<int,int>> mysnake;
+        int prevx,prevy;
     public:
         int getscore(){
-            // cout<<"\n";
-            // for(auto x: mysnake){
-            //     cout<<x.first<<" "<<x.second;
-            //     cout<<"\n";
-            // }
-            // cout<<"\n";
             return score;
         }
         snake(int w, int h){
@@ -121,24 +116,36 @@ class snake
                 case up:{
                     heady--;
                     mysnake.push_front({headx,heady});
+                    auto x=mysnake.back();
+                    prevx=x.first;
+                    prevy=x.second;
                     mysnake.pop_back();
                     break;
                 }
                 case down:{
                     heady++;
                     mysnake.push_front({headx,heady});
+                    auto x=mysnake.back();
+                    prevx=x.first;
+                    prevy=x.second;
                     mysnake.pop_back();
                     break;
                 }
                 case left:{
                     headx--;
                     mysnake.push_front({headx,heady});
+                    auto x=mysnake.back();
+                    prevx=x.first;
+                    prevy=x.second;
                     mysnake.pop_back();
                     break;
                 }
                 case right:{
                     headx++;
                     mysnake.push_front({headx,heady});
+                    auto x=mysnake.back();
+                    prevx=x.first;
+                    prevy=x.second;
                     mysnake.pop_back();
                     break;
                 }
@@ -154,9 +161,7 @@ class snake
             if(headx==targetx && heady==targety){
                 targetx= rand()%(width-2)+1;
                 targety= rand()% (height-2)+1;
-                auto last=mysnake.back();
-                
-                mysnake.push_back({last.first,last.second+1});
+                mysnake.push_back({prevx,prevy});
                 score+=10;
             }
         }
