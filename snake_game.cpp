@@ -153,7 +153,16 @@ class snake
                     break;
                 }
             }
+            //if out the boundary
             if(headx<0 || headx>=width || heady<0 || heady>=height){
+                dir=stop;
+                gameover=true;
+                return;
+            }
+            //if step on its own tail
+            pair<int,int> temphead={headx,heady};
+            auto iter=find(mysnake.begin()+1,mysnake.end(),temphead);
+            if(iter!=mysnake.end()){
                 dir=stop;
                 gameover=true;
                 return;
